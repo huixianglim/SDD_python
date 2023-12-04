@@ -98,16 +98,20 @@ def build_buildings():
             field_location = input("Where to place?")
             if len(field_location) != 2:
                 print("Invalid Input!")
-                continue
             else:
                 try:
                     if (field_location[0].upper() not in upper and (int(field_location[1]) < 1 or int(field_location[1])>20)):
                             print("Invalid Input!")
                     else:
-                        field[upper.index(field_location[0].upper())][int(field_location[1])-1] = temp[int(choice)]
+                        field[int(field_location[1])-1] = temp[int(choice)][upper.index(field_location[0].upper())]
                         return
                 except:
                     print("Invalid Input!")
+        else:
+            print("Invalid Input!")
+            choice = input("Which building would you want? Press 1 or 2: ")
+
+            continue
 
 #-----------------------------------------
 #               MAIN GAME
