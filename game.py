@@ -44,14 +44,28 @@ def print_field(field):
                 print(' |', end='    ')  # Print an empty cell
             else:
                 name = field[i][j]
-                print(f'| {name}', end='')  # Print the name of the entity
+                print(' | {:^3}'.format(name[0].upper()), end='')  # Print the name of the entity
 
         print(' |')  # End the row with the right border
 
     print('    +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+')
 
 
-# Game variables
+def game_menu():
+    valid = ["1","2","3"]
+    while True:
+        print()
+        print("1. Build Buildings     ")
+        print()
+        print("3. Save game    4. Exit to Main Menu")
+        option = input("\nYour choice? ") #Prompt user for choice
+        if option not in valid:
+            continue
+        else:
+            if choice == "1":
+                build_buildings()
+            return
+
 
 def show_main_menu():
     print("1. Start new game")
@@ -70,6 +84,30 @@ def get_main_choice():
                 
     return choice
 
+def initialize_game(save = None):
+    if save == None:
+        player["coins"] = 16
+        player["points"] = 0
+
+def build_buildings():
+    temp = [buildings[random.randint(0,4)], buildings[random.randint(0,4)]]
+    print(f"Available Buildings: {temp[0]} , {temp[1]}")
+    choice = input("Which building would you want? Press 1 or 2: ")
+    while True:
+        if choice == "1" or choice == "2":
+            field_location = input("Where to place?")
+            if len(field_location) != 2:
+                print("Invalid Input!")
+                continue
+            else:
+                try:
+                    if (field_location[0].upper() not in upper and (int(field_location[1]) < 1 or int(field_location[1])>20)):
+                            print("Invalid Input!")
+                    else:
+                        field[upper.index(field_location[0].upper())][int(field_location[1])-1] = temp[int(choice)]
+                        return
+                except:
+                    print("Invalid Input!")
 
 #-----------------------------------------
 #               MAIN GAME
@@ -79,29 +117,23 @@ print("\nNgee Ann City")
 print("-------------------")
 print("Build the happiest and most prosperous city!")
 print()
-
 show_main_menu()
+choice = get_main_choice()
 
-while True:
-    
-    choice = get_main_choice()
-    
-    if choice == '1':
-         
-        # create_new_game()
-        # main_gameplay()
-        print("1")
+if choice == '1':
+    while True:
+        initialize_game()
+        print_field(field)
+        choice = game_menu()
 
-            
-    elif choice == '2':
-        # initialize_game()
-        # load_game(game_vars)
-        # main_gameplay()
-        print("2")        
+        
+elif choice == '2':
+    initialize_game()
+    # load_game(game_vars)
+    # main_gameplay()
+    print("2")        
 
-    elif choice == '3':
-        print("\nHigh Scores")
+elif choice == '3':
+    print("\nHigh Scores")
 
-    elif choice == '4':
-        break
-    
+        
