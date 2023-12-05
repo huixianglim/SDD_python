@@ -1,6 +1,8 @@
 import string
 import random
-
+#-----------------------------------------
+#               Configurations
+#-----------------------------------------
 
 field = [ [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
           [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
@@ -23,12 +25,17 @@ field = [ [None, None, None, None, None, None, None,None, None, None, None, None
           [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
        [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None]]
 
-buildings = ["Residential","Industry","Commercial","Park","Road"]
+buildings = {"Residential":"R","Industry":"I","Commercial":"C","Park":"O","Road":"*"}
 
 player = {"coins":16,
           "points":0}
 
 upper = list(string.ascii_uppercase)
+
+#-----------------------------------------
+#               Field print
+#-----------------------------------------
+
 def print_field(field):
     print("   {:>5}".format(upper[0]),end="")
 
@@ -51,6 +58,10 @@ def print_field(field):
     print('    +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+')
 
 
+#-----------------------------------------
+#               GAME MENU
+#-----------------------------------------
+
 def game_menu():
     valid = ["1","2","3"]
     while True:
@@ -70,12 +81,19 @@ def game_menu():
                 build_buildings()
     return
 
+#-----------------------------------------
+#               Display Main Menu
+#-----------------------------------------
 
 def show_main_menu():
     print("1. Start new game")
     print("2. Load saved game")
     print("3. Display high scores")
     print("4. Exit")
+
+#-----------------------------------------
+#              Option input
+#-----------------------------------------
 
 def get_main_choice():
     choice = input("\nYour choice? ") #Prompt user for choice
@@ -88,21 +106,34 @@ def get_main_choice():
                 
     return choice
 
+#-----------------------------------------
+#               Initialize game
+#-----------------------------------------
+
 def initialize_game(save = None):
     if save == None:
         player["coins"] = 16
         player["points"] = 0
 
+#-----------------------------------------
+#                Build Buildings
+#-----------------------------------------
+
 def get_building_choice():
-    Available_Buildings = buildings
-    First_Building = Available_Buildings[random.randint(0,len(Available_Buildings)-1)]
-    Available_Buildings.remove(First_Building)
-    Second_Building = Available_Buildings[random.randint(0,len(Available_Buildings)-1)]
+    keys = list(buildings.keys())
+    
+    First_Building = random.choice(keys)
+    keys.remove(First_Building)
+    
+    Second_Building = random.choice(keys)
+    
     temp = [First_Building, Second_Building]
     return temp
 
 def build_buildings():
+    
     temp = get_building_choice()
+
     print(f"Available Buildings: {temp[0]} , {temp[1]}")
     choice = input("Which building would you want? Press 1 or 2: ")
     while True:
@@ -117,7 +148,8 @@ def build_buildings():
                     else:
                         row = int(field_location[1:])-1
                         column = ord(field_location[0].upper()) - ord('A')
-                        field[row][column] = temp[int(choice)-1][0]
+                        field[row][column] = buildings[temp[int(choice)-1]]
+                        player['coins'] -= 1
                         calculate_points(row, column, player)
                         return
                 except:
@@ -128,9 +160,14 @@ def build_buildings():
 
             continue
 
+#-----------------------------------------
+#               Calculate points
+#-----------------------------------------
+
 def calculate_points(row, column, player):
     directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # right, down, left, up
     building = field[row][column]
+    accumulated_points = 0
     if building is not None:
         # Residential
         if building == 'R':
@@ -139,25 +176,26 @@ def calculate_points(row, column, player):
                 if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
                     if field[nx][ny] != None:
                         if field[nx][ny] == 'I':
-                            player['points'] += 1
+                            accumulated_points = 1
                             player['coins'] += 1
+                            break
                         elif field[nx][ny] == 'R':
-                            player['points'] += 1
+                            accumulated_points += 1
                         elif field[nx][ny] == 'C':
-                            player['points'] += 1
+                            accumulated_points += 1
                             player['coins'] += 1
                         elif field[nx][ny] == 'O':
-                            player['points'] += 2
+                            accumulated_points += 2
 
         # Industry
         elif building == 'I':
-            player['points'] += 1
+            accumulated_points += 1
             for dx, dy in directions:
                 nx, ny = row + dx, column + dy
                 if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
                     if field[nx][ny] != None:
                         if field[nx][ny] == 'R':
-                            player['points'] += 1
+                            accumulated_points += 1
                             player['coins'] += 1
 
         # Commercial
@@ -167,10 +205,10 @@ def calculate_points(row, column, player):
                 if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
                     if field[nx][ny] != None:
                         if field[nx][ny] == 'C':
-                            player['points'] += 1
+                            accumulated_points += 1
                         elif field[nx][ny] == 'R':
-                            player['coins'] += 1
-                            player['points'] += 1
+                            accumulated_points += 1
+                            accumulated_points += 1
 
         # Park
         elif building == 'O':
@@ -179,7 +217,7 @@ def calculate_points(row, column, player):
                 if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
                     if field[nx][ny] != None:
                         if field[nx][ny] == 'O':
-                            player['points'] += 1
+                            accumulated_points += 1
 
         # Road
         elif building == '*':
@@ -189,14 +227,15 @@ def calculate_points(row, column, player):
                 if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
                     if field[nx][ny] != None:
                         if field[nx][ny] == '*':
-                            player['points'] += 1
+                            accumulated_points += 1
                         if field[nx][ny] == 'R':
-                            player['points'] += 2
+                            accumulated_points += 2
+        
+        player['points'] += accumulated_points
 
 #-----------------------------------------
 #               MAIN GAME
 #-----------------------------------------
-
 print("\nNgee Ann City")
 print("-------------------")
 print("Build the happiest and most prosperous city!")
