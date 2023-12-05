@@ -54,6 +54,10 @@ def print_field(field):
 def game_menu():
     valid = ["1","2","3"]
     while True:
+        print_field(field)
+        print("╔══════════════════════════════════════════╗")
+        print(f"║  Coins: {player['coins']: <4} 💰    Points: {player['points']: <4} 🌟       ║")
+        print("╚══════════════════════════════════════════╝")
         print()
         print("1. Build Buildings     ")
         print()
@@ -64,7 +68,7 @@ def game_menu():
         else:
             if choice == "1":
                 build_buildings()
-            return
+    return
 
 
 def show_main_menu():
@@ -106,6 +110,7 @@ def build_buildings():
                         row = int(field_location[1:])-1
                         column = ord(field_location[0].upper()) - ord('A')
                         field[row][column] = temp[int(choice)-1][0]
+                        calculate_points(row, column, player)
                         return
                 except:
                     print("Invalid Input!")
@@ -114,6 +119,71 @@ def build_buildings():
             choice = input("Which building would you want? Press 1 or 2: ")
 
             continue
+
+def calculate_points(row, column, player):
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # right, down, left, up
+    building = field[row][column]
+    if building is not None:
+        # Residential
+        if building == 'R':
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'I':
+                            player['points'] += 1
+                            player['coins'] += 1
+                        elif field[nx][ny] == 'R':
+                            player['points'] += 1
+                        elif field[nx][ny] == 'C':
+                            player['points'] += 1
+                            player['coins'] += 1
+                        elif field[nx][ny] == 'O':
+                            player['points'] += 2
+
+        # Industry
+        elif building == 'I':
+            player['points'] += 1
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'R':
+                            player['points'] += 1
+                            player['coins'] += 1
+
+        # Commercial
+        elif building == 'C':
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'C':
+                            player['points'] += 1
+                        elif field[nx][ny] == 'R':
+                            player['coins'] += 1
+                            player['points'] += 1
+
+        # Park
+        elif building == 'O':
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'O':
+                            player['points'] += 1
+
+        # Road
+        elif building == '*':
+            road_directions = [(0, 1), (0, -1)]  # right, left
+            for dx, dy in road_directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == '*':
+                            player['points'] += 1
+                        if field[nx][ny] == 'R':
+                            player['points'] += 2
 
 #-----------------------------------------
 #               MAIN GAME
@@ -129,7 +199,6 @@ choice = get_main_choice()
 if choice == '1':
     while True:
         initialize_game()
-        print_field(field)
         choice = game_menu()
 
         
