@@ -95,15 +95,17 @@ def build_buildings():
     choice = input("Which building would you want? Press 1 or 2: ")
     while True:
         if choice == "1" or choice == "2":
-            field_location = input("Where to place?")
-            if len(field_location) != 2:
+            field_location = input("Where to place? ")
+            if len(field_location) != 2 and len(field_location) != 3:
                 print("Invalid Input!")
             else:
                 try:
-                    if (field_location[0].upper() not in upper and (int(field_location[1]) < 1 or int(field_location[1])>20)):
+                    if (field_location[0].upper() not in upper and (int(field_location[1:]) < 1 or int(field_location[1:])>20)):
                             print("Invalid Input!")
                     else:
-                        field[int(field_location[1])-1] = temp[int(choice)][upper.index(field_location[0].upper())]
+                        row = int(field_location[1:])-1
+                        column = ord(field_location[0].upper()) - ord('A')
+                        field[row][column] = temp[int(choice)-1][0]
                         return
                 except:
                     print("Invalid Input!")
