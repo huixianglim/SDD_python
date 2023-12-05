@@ -208,8 +208,7 @@ def calculate_points(row, column, player):
                             accumulated_points += 1
                         elif field[nx][ny] == 'R':
                             accumulated_points += 1
-                            accumulated_points += 1
-
+                            player['coins'] += 1
         # Park
         elif building == 'O':
             for dx, dy in directions:
