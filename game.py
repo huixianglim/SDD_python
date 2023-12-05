@@ -93,8 +93,16 @@ def initialize_game(save = None):
         player["coins"] = 16
         player["points"] = 0
 
+def get_building_choice():
+    Available_Buildings = buildings
+    First_Building = Available_Buildings[random.randint(0,len(Available_Buildings)-1)]
+    Available_Buildings.remove(First_Building)
+    Second_Building = Available_Buildings[random.randint(0,len(Available_Buildings)-1)]
+    temp = [First_Building, Second_Building]
+    return temp
+
 def build_buildings():
-    temp = [buildings[random.randint(0,4)], buildings[random.randint(0,4)]]
+    temp = get_building_choice()
     print(f"Available Buildings: {temp[0]} , {temp[1]}")
     choice = input("Which building would you want? Press 1 or 2: ")
     while True:
