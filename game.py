@@ -143,7 +143,7 @@ def build_buildings():
                 print("Invalid Input!")
             else:
                 try:
-                    if (field_location[0].upper() not in upper and (int(field_location[1:]) < 1 or int(field_location[1:])>20)):
+                    if (field_location[0].upper() not in upper or (int(field_location[1:]) < 1 or int(field_location[1:])>20) or field[int(field_location[1:])-1][ord(field_location[0].upper()) - ord('A')] != None):
                             print("Invalid Input!")
                     else:
                         row = int(field_location[1:])-1
