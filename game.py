@@ -72,13 +72,17 @@ def game_menu():
         print()
         print("1. Build Buildings     ")
         print()
-        print("3. Save game    4. Exit to Main Menu")
+        print("2. Save game    3. Exit to Main Menu")
         option = input("\nYour choice? ") #Prompt user for choice
         if option not in valid:
             continue
         else:
-            if choice == "1":
+            if option == "1":
                 build_buildings()
+            elif option == "2":
+                print("Unincorporated Feature")
+            elif option == "3":
+                print("Unincorporated Feature")
     return
 
 #-----------------------------------------
