@@ -30,6 +30,8 @@ buildings = {"Residential":"R","Industry":"I","Commercial":"C","Park":"O","Road"
 player = {"coins":16,
           "points":0}
 
+high_scores = []
+
 upper = list(string.ascii_uppercase)
 
 #-----------------------------------------
@@ -135,11 +137,11 @@ def get_building_choice():
     return temp
 
 def build_buildings():
-    
     temp = get_building_choice()
 
     print(f"Available Buildings: {temp[0]} , {temp[1]}")
     choice = input("Which building would you want? Press 1 or 2: ")
+
     while True:
         if choice == "1" or choice == "2":
             field_location = input("Where to place? ")
@@ -147,22 +149,56 @@ def build_buildings():
                 print("Invalid Input!")
             else:
                 try:
-                    if (field_location[0].upper() not in upper or (int(field_location[1:]) < 1 or int(field_location[1:])>20) or field[int(field_location[1:])-1][ord(field_location[0].upper()) - ord('A')] != None):
+                    if is_field_empty(field) or is_connected(field_location):
+                        print(is_field_empty(field))
+                        print(is_connected(field_location))
+                        if (
+                            field_location[0].upper() not in upper
+                            or (int(field_location[1:]) < 1 or int(field_location[1:]) > 20)
+                            or field[int(field_location[1:]) - 1][
+                                ord(field_location[0].upper()) - ord("A")
+                            ]
+                            != None
+                        ):
                             print("Invalid Input!")
+                        else:
+                            row = int(field_location[1:]) - 1
+                            column = ord(field_location[0].upper()) - ord("A")
+                            field[row][column] = buildings[temp[int(choice) - 1]]
+                            player["coins"] -= 1
+                            calculate_points(row, column, player)
+
+                            return
                     else:
-                        row = int(field_location[1:])-1
-                        column = ord(field_location[0].upper()) - ord('A')
-                        field[row][column] = buildings[temp[int(choice)-1]]
-                        player['coins'] -= 1
-                        calculate_points(row, column, player)
-                        return
+                        print("Invalid Input! Build connected to existing buildings.")
                 except:
                     print("Invalid Input!")
         else:
             print("Invalid Input!")
             choice = input("Which building would you want? Press 1 or 2: ")
-
             continue
+
+def is_field_empty(field):
+    for row in field:
+        for element in row:
+            if element is not None:
+                return False
+    return True
+
+# Function to check if the given location is connected to existing buildings
+def is_connected(location):
+    row = int(location[1:]) - 1
+    column = ord(location[0].upper()) - ord("A")
+
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # right, down, left, up
+
+    for dx, dy in directions:
+        nx, ny = row + dx, column + dy
+        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+            if field[nx][ny] is not None:
+                return True
+
+    return False
 
 #-----------------------------------------
 #               Calculate points
@@ -239,26 +275,28 @@ def calculate_points(row, column, player):
 #-----------------------------------------
 #               MAIN GAME
 #-----------------------------------------
-print("\nNgee Ann City")
-print("-------------------")
-print("Build the happiest and most prosperous city!")
-print()
-show_main_menu()
-choice = get_main_choice()
+def main_gameplay():
+    print("\nNgee Ann City")
+    print("-------------------")
+    print("Build the happiest and most prosperous city!")
+    print()
+    show_main_menu()
+    choice = get_main_choice()
 
-if choice == '1':
-    while True:
+    if choice == '1':
+        while True:
+            initialize_game()
+            choice = game_menu()
+
+            
+    elif choice == '2':
         initialize_game()
-        choice = game_menu()
+        # load_game(game_vars)
+        # main_gameplay()
+        print("2")        
+
+    elif choice == '3':
+        print("\nHigh Scores")
 
         
-elif choice == '2':
-    initialize_game()
-    # load_game(game_vars)
-    # main_gameplay()
-    print("2")        
-
-elif choice == '3':
-    print("\nHigh Scores")
-
-        
+main_gameplay()
