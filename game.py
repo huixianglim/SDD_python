@@ -89,9 +89,9 @@ def game_menu():
             if option == "1":
                 build_buildings()
             elif option == "2":
-                print("Unincorporated Feature")
+                save_game()
             elif option == "3":
-                print("Unincorporated Feature")
+                print("Unincorporated feature")
     return
 
 #-----------------------------------------
@@ -317,29 +317,93 @@ def print_leaderboard():
 
 #update_leaderboard(player)
     
+
+#-----------------------------------------
+#               Save game
+#-----------------------------------------
+        
+def save_game():
+    path = ""  # Can be modified if needed
+    
+    try:
+        file = open(path + "Save_Data.txt", "w")
+
+        for row in range(len(field)):  # Runs by the number of rows in the field
+            for column in range(len(field[row])):  # Runs by the number of columns in the field
+                tile_value = field[row][column]
+                file.write(str(tile_value) if tile_value is not None else "None")  # Write tile value into file
+                if column != len(field[row]) - 1:  # Checks if column is not the last index
+                    file.write(",")  # Separates values by a comma
+            file.write("\n")  
+    
+        file.write(f"{player['coins']},{player['points']}\n")
+
+        print("\nGame saved successfully!\n")
+    
+    except Exception as e:
+        print(f"Error saving game: {e}")
+
+    file.close()
+
+
+#-----------------------------------------
+#               Load game
+#-----------------------------------------
+    
+def load_game():
+    path = ""  # Can be modified if needed
+    try:
+        with open(path + "Save_Data.txt", "r") as file:
+            # Read the field data
+            for row in range(len(field)):
+                line = file.readline().strip().split(',')
+                for column in range(len(field[row])):
+                    field[row][column] = None if line[column] == 'None' else line[column]
+
+            # Read player data
+            player_data = file.readline().strip().split(',')
+            player["coins"] = int(player_data[0])
+            player["points"] = int(player_data[1])
+
+            print("\nGame loaded successfully!\n")
+            return True  # Return True to indicate successful loading
+        
+    except FileNotFoundError:
+        print("\nNo saved game found.\n")
+        return False  # Return False to indicate no saved game found
+
+    except Exception as e:
+        print(f"\nError loading game: {e}\n")
+        return False  # Return False for other loading errors
+    
+    
 #-----------------------------------------
 #               MAIN GAME
 #-----------------------------------------
-print("\nNgee Ann City")
-print("-------------------")
-print("Build the happiest and most prosperous city!")
-print()
-show_main_menu()
-choice = get_main_choice()
 
-if choice == '1':
-    while True:
+while True:
+    print("\nNgee Ann City")
+    print("-------------------")
+    print("Build the happiest and most prosperous city!")
+    print()
+    show_main_menu()
+    choice = get_main_choice()
+
+    if choice == '1':
+        while True:
+            initialize_game()
+            choice = game_menu()
+
+            
+    elif choice == '2':
         initialize_game()
-        choice = game_menu()
-
+        if load_game():  # Check the result of load_game
+            choice = game_menu()
+        else:
+            continue
         
-elif choice == '2':
-    initialize_game()
-    # load_game(game_vars)
-    # main_gameplay()
-    print("2")        
 
-elif choice == '3':
-    print("\nHigh Scores")
+    elif choice == '3':
+        print("\nHigh Scores")
 
         
