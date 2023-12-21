@@ -76,7 +76,7 @@ def game_menu():
     while True:
         print_field(field)
         print("╔══════════════════════════════════════════╗")
-        print(f"║  Coins: {player['coins']: <4} 💰    Points: {player['points']: <4} 🌟       ║")
+        print(f"║  Coins: {player.coins: <4} 💰    Points: {player.points: <4} 🌟       ║")
         print("╚══════════════════════════════════════════╝")
         print()
         print("1. Build Buildings     ")
@@ -125,8 +125,8 @@ def get_main_choice():
 
 def initialize_game(save = None):
     if save == None:
-        player["coins"] = 16
-        player["points"] = 0
+        player.coins = 16
+        player.points = 0
 
 #-----------------------------------------
 #                Build Buildings
@@ -177,7 +177,12 @@ def build_buildings():
 
                             return
                     else:
-                        print("Invalid Input! Build connected to existing buildings.")
+                        row = int(field_location[1:])-1
+                        column = ord(field_location[0].upper()) - ord('A')
+                        field[row][column] = buildings[temp[int(choice)-1]]
+                        player.coins -= 1
+                        calculate_points(row, column, player)
+                        return
                 except:
                     print("Invalid Input!")
         else:
@@ -224,13 +229,13 @@ def calculate_points(row, column, player):
                     if field[nx][ny] != None:
                         if field[nx][ny] == 'I':
                             accumulated_points = 1
-                            player['coins'] += 1
+                            player.coins += 1
                             break
                         elif field[nx][ny] == 'R':
                             accumulated_points += 1
                         elif field[nx][ny] == 'C':
                             accumulated_points += 1
-                            player['coins'] += 1
+                            player.coins += 1
                         elif field[nx][ny] == 'O':
                             accumulated_points += 2
 
@@ -242,7 +247,7 @@ def calculate_points(row, column, player):
                 if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
                     if field[nx][ny] != None:
                         if field[nx][ny] == 'R':
-                            player['coins'] += 1
+                            player.coins += 1
 
         # Commercial
         elif building == 'C':
@@ -254,7 +259,7 @@ def calculate_points(row, column, player):
                             accumulated_points += 1
                         elif field[nx][ny] == 'R':
                             accumulated_points += 1
-                            player['coins'] += 1
+                            player.coins += 1
         # Park
         elif building == 'O':
             for dx, dy in directions:
@@ -276,7 +281,7 @@ def calculate_points(row, column, player):
                         if field[nx][ny] == 'R':
                             accumulated_points += 2
         
-        player['points'] += accumulated_points
+        player.points += accumulated_points
 
 
 #-----------------------------------------
