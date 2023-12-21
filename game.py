@@ -27,9 +27,18 @@ field = [ [None, None, None, None, None, None, None,None, None, None, None, None
 
 buildings = {"Residential":"R","Industry":"I","Commercial":"C","Park":"O","Road":"*"}
 
-player = {"coins":16,
-          "points":0}
+class Players:
+    def __init__(self, points: int, coins: int):
+        self.points = points
+        self.coins = coins
 
+player = Players(points=0, coins=16)
+
+class Records:
+      def __init__(self, name: str, points: int):
+        self.player = name
+        self.points = points
+    
 upper = list(string.ascii_uppercase)
 
 #-----------------------------------------
@@ -199,7 +208,6 @@ def calculate_points(row, column, player):
                 if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
                     if field[nx][ny] != None:
                         if field[nx][ny] == 'R':
-                            accumulated_points += 1
                             player['coins'] += 1
 
         # Commercial
@@ -236,6 +244,79 @@ def calculate_points(row, column, player):
         
         player['points'] += accumulated_points
 
+
+#-----------------------------------------
+#               LEADERBOARD SAVE 
+#-----------------------------------------
+def update_leaderboard(player1:Players):
+    f = open("player.txt",'r+')
+    people_array = []
+    for line in f:
+       player,points = line.split('|')
+
+       temp = Records(player,int(points))
+       people_array.append(temp)
+    people_array = sorted(people_array, key=lambda x: x.points, reverse=True)
+    size = len(people_array)
+
+    if size != 10:
+        name = input('Please enter your name: ')
+        while True:
+            if len(name) > 10:
+                print("Please try again!(Name length must be less than or equal to 10 characters)")
+                name = input('Please enter your name: ')
+            else:
+                break
+        temp_append = Records(name,player1.points)
+        people_array.append(temp_append)
+    else:
+        for i, existing_player in enumerate(people_array):
+            if player1.points > existing_player.points or (player1.points == existing_player.points and i < 10):
+                name = input('Please enter your name: ')
+                while True:
+                    if len(name) > 10:
+                        print("Please try again!(Name length must be less than or equal to 10 characters)")
+                        name = input('Please enter your name: ')
+                    else:
+                        break
+                temp_append = Records(name,player1.points)
+                people_array.insert(i, temp_append)
+                break
+
+            # elif player1.points == existing_player.points:
+            #     if i < 10:
+            #         name = input('Please enter your name: ')
+            #         temp_append = Records(name,player1.points)
+            #         people_array.insert(i+1, temp_append)
+            #     break
+    
+
+    people_array = people_array[:9]
+
+    f.seek(0)
+    for i in people_array:
+        f.write(f"{i.player}|{i.points}")
+        f.write('\n')
+    
+    f.close()
+
+
+
+#-----------------------------------------
+#               PRINT RECORDS
+#-----------------------------------------
+def print_leaderboard():
+    f = open("player.txt",'r')
+    print(f"Player       Points")
+    for line in f:
+         player,points = line.split('|')
+
+         print("{:<13}{:<20}".format(player,int(points)))
+    
+    f.close()
+
+#update_leaderboard(player)
+    
 
 #-----------------------------------------
 #               Save game
@@ -294,9 +375,8 @@ def load_game():
     except Exception as e:
         print(f"\nError loading game: {e}\n")
         return False  # Return False for other loading errors
-
-
-
+    
+    
 #-----------------------------------------
 #               MAIN GAME
 #-----------------------------------------
