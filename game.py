@@ -4,26 +4,29 @@ import random
 #               Configurations
 #-----------------------------------------
 
-field = [ [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-       [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None], 
-       [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-       [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-       [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-       [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-       [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-          [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None],
-       [None, None, None, None, None, None, None,None, None, None, None, None,None, None, None, None, None,None, None, None]]
+field = [
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+]
 
 buildings = {"Residential":"R","Industry":"I","Commercial":"C","Park":"O","Road":"*"}
 
@@ -127,6 +130,9 @@ def initialize_game(save = None):
     if save == None:
         player.coins = 16
         player.points = 0
+        for row in range(len(field)):
+                for column in range(len(field[row])):
+                    field[row][column] = None
 
 #-----------------------------------------
 #                Build Buildings
@@ -157,8 +163,6 @@ def build_buildings():
             else:
                 try:
                     if is_field_empty(field) or is_connected(field_location):
-                        print(is_field_empty(field))
-                        print(is_connected(field_location))
                         if (
                             field_location[0].upper() not in upper
                             or (int(field_location[1:]) < 1 or int(field_location[1:]) > 20)
@@ -172,17 +176,13 @@ def build_buildings():
                             row = int(field_location[1:]) - 1
                             column = ord(field_location[0].upper()) - ord("A")
                             field[row][column] = buildings[temp[int(choice) - 1]]
-                            player["coins"] -= 1
+                            player.coins -= 1
                             calculate_points(row, column, player)
 
-                            return
-                    else:
-                        row = int(field_location[1:])-1
-                        column = ord(field_location[0].upper()) - ord('A')
-                        field[row][column] = buildings[temp[int(choice)-1]]
-                        player.coins -= 1
-                        calculate_points(row, column, player)
-                        return
+                            if check_game_over(player, field):
+                                break
+                            else:
+                                return
                 except:
                     print("Invalid Input!")
         else:
@@ -283,7 +283,6 @@ def calculate_points(row, column, player):
         
         player.points += accumulated_points
 
-
 #-----------------------------------------
 #               LEADERBOARD SAVE 
 #-----------------------------------------
@@ -299,6 +298,8 @@ def update_leaderboard(player1:Players):
     size = len(people_array)
 
     if size != 10:
+        print("\n🎉 Congratulations! You are currently in the top 10 of the leaderboard! 🎉")
+        print(f"\nYour current score: {player1.points} points\n")
         name = input('Please enter your name: ')
         while True:
             if len(name) > 10:
@@ -311,6 +312,8 @@ def update_leaderboard(player1:Players):
     else:
         for i, existing_player in enumerate(people_array):
             if player1.points > existing_player.points or (player1.points == existing_player.points and i < 10):
+                print(f"\nYour current score: {player1.points} points\n")
+                print("\n🎉 Congratulations! You are currently in the top 10 of the leaderboard! 🎉")
                 name = input('Please enter your name: ')
                 while True:
                     if len(name) > 10:
@@ -339,8 +342,6 @@ def update_leaderboard(player1:Players):
     
     f.close()
 
-
-
 #-----------------------------------------
 #               PRINT RECORDS
 #-----------------------------------------
@@ -353,9 +354,6 @@ def print_leaderboard():
          print("{:<13}{:<20}".format(player,int(points)))
     
     f.close()
-
-#update_leaderboard(player)
-    
 
 #-----------------------------------------
 #               Save game
@@ -384,7 +382,6 @@ def save_game():
 
     file.close()
 
-
 #-----------------------------------------
 #               Load game
 #-----------------------------------------
@@ -401,8 +398,8 @@ def load_game():
 
             # Read player data
             player_data = file.readline().strip().split(',')
-            player["coins"] = int(player_data[0])
-            player["points"] = int(player_data[1])
+            player.coins = int(player_data[0])
+            player.points = int(player_data[1])
 
             print("\nGame loaded successfully!\n")
             return True  # Return True to indicate successful loading
@@ -415,7 +412,44 @@ def load_game():
         print(f"\nError loading game: {e}\n")
         return False  # Return False for other loading errors
     
-    
+#-----------------------------------------
+#               End Game
+#-----------------------------------------
+def check_game_over(player, field):
+    # Check if the game is over (no more coins or board filled)
+    if player.coins <= 0 or is_field_filled(field):
+        # Print multiple blank lines to "clear" the terminal
+        print('\n' * 30)
+
+        print("  /$$$$$$   /$$$$$$  /$$      /$$ /$$$$$$$$        /$$$$$$  /$$    /$$ /$$$$$$$$ /$$$$$$$ ")
+        print(" /$$__  $$ /$$__  $$| $$$    /$$$| $$_____/       /$$__  $$| $$   | $$| $$_____/| $$__  $$")
+        print("| $$  \\__/| $$  \\ $$| $$$$  /$$$$| $$            | $$  \\ $$| $$   | $$| $$      | $$  \\ $$")
+        print("| $$ /$$$$| $$$$$$$$| $$ $$/$$ $$| $$$$$         | $$  | $$|  $$ / $$/| $$$$$   | $$$$$$$/")
+        print("| $$|_  $$| $$__  $$| $$  $$$| $$| $$__/         | $$  | $$ \\  $$ $$/ | $$__/   | $$__  $$")
+        print("| $$  \\ $$| $$  | $$| $$\\  $ | $$| $$            | $$  | $$  \\  $$$/  | $$      | $$  \\ $$")
+        print("|  $$$$$$/| $$  | $$| $$ \\/  | $$| $$$$$$$$      |  $$$$$$/   \\  $/   | $$$$$$$$| $$  | $$")
+        print(" \\______/ |__/  |__/|__/     |__/|________/       \\______/     \\_/    |________/|__/  |__/")
+
+        update_leaderboard(player)
+        return_to_main_menu()
+        return True
+    else:
+        return False
+
+def is_field_filled(field):
+    for row in field:
+        for element in row:
+            if element is None:
+                return False
+    return True
+
+#-----------------------------------------
+#          Return to main menu
+#-----------------------------------------
+def return_to_main_menu():
+    print("\nReturning to the main menu...")
+    main_gameplay()
+
 #-----------------------------------------
 #               MAIN GAME
 #-----------------------------------------
