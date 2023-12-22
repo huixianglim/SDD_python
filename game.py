@@ -375,7 +375,7 @@ def save_game():
                     file.write(",")  # Separates values by a comma
             file.write("\n")  
     
-        file.write(f"{player['coins']},{player['points']}\n")
+        file.write(f"{player.coins},{player.points}\n")
 
         print("\nGame saved successfully!\n")
     
