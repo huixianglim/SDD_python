@@ -94,7 +94,7 @@ def game_menu():
             elif option == "2":
                 save_game()
             elif option == "3":
-                print("Unincorporated feature")
+                return_to_main_menu()
     return
 
 #-----------------------------------------
@@ -113,11 +113,11 @@ def show_main_menu():
 
 def get_main_choice():
     choice = input("\nYour choice? ") #Prompt user for choice
-    if (choice != '1' and choice != '2' and choice != '3'):
+    if (choice != '1' and choice != '2' and choice != '3' and choice != '4'):
         is_invalid = True          #Validation of choice
         while is_invalid: 
             choice = input('Invalid input. Please select a proper choice ')
-            if choice == '1' or choice == '2' or choice == '3':
+            if choice == '1' or choice == '2' or choice == '3' or choice == '4':
                 is_invalid = False
                 
     return choice
@@ -465,11 +465,6 @@ def main_gameplay():
         while True:
             initialize_game()
             choice = game_menu()
-    if choice == '1':
-        while True:
-            initialize_game()
-            choice = game_menu()
-
             
     elif choice == '2':
         initialize_game()
@@ -479,8 +474,9 @@ def main_gameplay():
 
     elif choice == '3':
         print("\nHigh Scores")
-    elif choice == '3':
-        print("\nHigh Scores")
+
+    elif choice == '4':
+        print("\nThank you for playing!")
 
         
 main_gameplay()
