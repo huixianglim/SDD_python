@@ -176,7 +176,7 @@ def build_buildings():
                             column = ord(field_location[0].upper()) - ord("A")
                             field[row][column] = buildings[temp[int(choice) - 1]]
                             player.coins -= 1
-                            calculate_points(row, column, player)
+                            calculate_points(row,column,player)
 
                             if check_game_over(player, field):
                                 break
@@ -221,71 +221,69 @@ def calculate_points(row, column, player):
     directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # right, down, left, up
     building = field[row][column]
     accumulated_points = 0
-    for row in len(field):
-        for column in len(field[0]):
-            building = field[row][column]
-            if building is not None:
-                # Residential
-                if building == 'R':
-                    for dx, dy in directions:
-                        nx, ny = row + dx, column + dy
-                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                            if field[nx][ny] != None:
-                                if field[nx][ny] == 'I':
-                                    accumulated_points = 1
-                                    player.coins += 1
-                                    break
-                                elif field[nx][ny] == 'R':
-                                    accumulated_points += 1
-                                elif field[nx][ny] == 'C':
-                                    accumulated_points += 1
-                                    player.coins += 1
-                                elif field[nx][ny] == 'O':
-                                    accumulated_points += 2
+    if building is not None:
+        # Residential
+        if building == 'R':
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'I':
+                            accumulated_points = 1
+                            player.coins += 1
+                            break
+                        elif field[nx][ny] == 'R':
+                            accumulated_points += 1
+                        elif field[nx][ny] == 'C':
+                            accumulated_points += 1
+                            player.coins += 1
+                        elif field[nx][ny] == 'O':
+                            accumulated_points += 2
 
-                # Industry
-                elif building == 'I':
-                    accumulated_points += 1
-                    for dx, dy in directions:
-                        nx, ny = row + dx, column + dy
-                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                            if field[nx][ny] != None:
-                                if field[nx][ny] == 'R':
-                                    player.coins += 1
+        # Industry
+        elif building == 'I':
+            accumulated_points += 1
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'R':
+                            player.coins += 1
 
-                # Commercial
-                elif building == 'C':
-                    for dx, dy in directions:
-                        nx, ny = row + dx, column + dy
-                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                            if field[nx][ny] != None:
-                                if field[nx][ny] == 'C':
-                                    accumulated_points += 1
-                                elif field[nx][ny] == 'R':
-                                    accumulated_points += 1
-                                    player.coins += 1
-                # Park
-                elif building == 'O':
-                    for dx, dy in directions:
-                        nx, ny = row + dx, column + dy
-                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                            if field[nx][ny] != None:
-                                if field[nx][ny] == 'O':
-                                    accumulated_points += 1
+        # Commercial
+        elif building == 'C':
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'C':
+                            accumulated_points += 1
+                        elif field[nx][ny] == 'R':
+                            accumulated_points += 1
+                            player.coins += 1
+        # Park
+        elif building == 'O':
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'O':
+                            accumulated_points += 1
 
-                # Road
-                elif building == '*':
-                    road_directions = [(0, 1), (0, -1)]  # right, left
-                    for dx, dy in road_directions:
-                        nx, ny = row + dx, column + dy
-                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                            if field[nx][ny] != None:
-                                if field[nx][ny] == '*':
-                                    accumulated_points += 1
-                                if field[nx][ny] == 'R':
-                                    accumulated_points += 2
-            
-    player.points += accumulated_points
+        # Road
+        elif building == '*':
+            road_directions = [(0, 1), (0, -1)]  # right, left
+            for dx, dy in road_directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == '*':
+                            accumulated_points += 1
+                        if field[nx][ny] == 'R':
+                            accumulated_points += 2
+        
+        player.points += accumulated_points
+
 
 #-----------------------------------------
 #               LEADERBOARD SAVE 
@@ -491,15 +489,13 @@ def main_gameplay():
         show_main_menu()
         choice = get_main_choice()
         if choice == '1':
-            while True:
-                initialize_game()
-                choice = game_menu()
+            initialize_game()
+            game_menu()
                 
         elif choice == '2':
-            load_game()
-            while True:
-                initialize_game()
-                choice = game_menu()
+            boolean_check = load_game()
+            if boolean_check:
+                game_menu()
 
         elif choice == '3':
             print_leaderboard()
@@ -508,6 +504,6 @@ def main_gameplay():
             break
             print("\nThank you for playing!")
 
-        
+
 main_gameplay()
 
