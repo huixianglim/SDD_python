@@ -1,8 +1,9 @@
 Test|20
 John|10
-1|0
-20|0
-1|0
-John Cena|0
-201|0
-123|0
+1|5
+rep|4
+tetty|4
+kpop|4
+poke|3
+20|3
+tete|3

@@ -25,7 +25,6 @@ field = [
     [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
     [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
     [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
 ]
 
 buildings = {"Residential":"R","Industry":"I","Commercial":"C","Park":"O","Road":"*"}
@@ -35,7 +34,7 @@ class Players:
         self.points = points
         self.coins = coins
 
-player = Players(points=0, coins=16)
+player = Players(points=4, coins=16)
 
 class Records:
       def __init__(self, name: str, points: int):
@@ -308,10 +307,15 @@ def update_leaderboard(player1:Players):
             else:
                 break
         temp_append = Records(name,player1.points)
-        people_array.append(temp_append)
+        insert_index = 0
+        while insert_index < len(people_array) and temp_append.points <= people_array[insert_index].points:
+            insert_index += 1
+
+        people_array.insert(insert_index, temp_append)
+
     else:
         for i, existing_player in enumerate(people_array):
-            if player1.points > existing_player.points or (player1.points == existing_player.points and i < 10):
+            if player1.points > existing_player.points:
                 print(f"\nYour current score: {player1.points} points\n")
                 print("\n🎉 Congratulations! You are currently in the top 10 of the leaderboard! 🎉")
                 name = input('Please enter your name: ')
@@ -325,16 +329,32 @@ def update_leaderboard(player1:Players):
                 people_array.insert(i, temp_append)
                 break
 
-            # elif player1.points == existing_player.points:
-            #     if i < 10:
-            #         name = input('Please enter your name: ')
-            #         temp_append = Records(name,player1.points)
-            #         people_array.insert(i+1, temp_append)
-            #     break
+            elif player1.points == existing_player.points:
+                if i < 9:
+                    last_index = i
+                    for x in range(i+1, len(people_array)):
+                        if (player1.points == people_array[x].points):
+                            last_index = x
+                        else:
+                            break
+                    if last_index < 9:
+                        print(f"\nYour current score: {player1.points} points\n")
+                        print("\n🎉 Congratulations! You are currently in the top 10 of the leaderboard! 🎉")
+                        name = input('Please enter your name: ')
+                        while True:
+                            if len(name) > 10:
+                                print("Please try again!(Name length must be less than or equal to 10 characters)")
+                                name = input('Please enter your name: ')
+                            else:
+                                break
+                        temp_append = Records(name,player1.points)
+                        people_array.insert(i+1, temp_append)
+                        break
+            
     
 
-    people_array = people_array[:9]
-
+    people_array = people_array[:10]
+    
     f.seek(0)
     for i in people_array:
         f.write(f"{i.player}|{i.points}")
@@ -348,6 +368,7 @@ def update_leaderboard(player1:Players):
 def print_leaderboard():
     f = open("player.txt",'r')
     print(f"Player       Points")
+
     for line in f:
          player,points = line.split('|')
 
@@ -443,12 +464,14 @@ def is_field_filled(field):
                 return False
     return True
 
+
 #-----------------------------------------
 #          Return to main menu
 #-----------------------------------------
 def return_to_main_menu():
     print("\nReturning to the main menu...")
     main_gameplay()
+
 
 #-----------------------------------------
 #               MAIN GAME
@@ -467,10 +490,10 @@ def main_gameplay():
             choice = game_menu()
             
     elif choice == '2':
-        initialize_game()
-        # load_game(game_vars)
-        # main_gameplay()
-        print("2")        
+        load_game()
+        while True:
+            initialize_game()
+            choice = game_menu()
 
     elif choice == '3':
         print("\nHigh Scores")
@@ -480,3 +503,4 @@ def main_gameplay():
 
         
 main_gameplay()
+
