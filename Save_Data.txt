@@ -1,4 +1,5 @@
-*,*,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+I,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
+I,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
 None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
 None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
 None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
@@ -17,5 +18,4 @@ None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,
 None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
 None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
 None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
-None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
-14,1
+14,2
