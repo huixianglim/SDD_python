@@ -34,7 +34,7 @@ class Players:
         self.points = points
         self.coins = coins
 
-player = Players(points=4, coins=16)
+player = Players(points=0, coins=16)
 
 class Records:
       def __init__(self, name: str, points: int):
@@ -86,14 +86,18 @@ def game_menu():
         print("2. Save game    3. Exit to Main Menu")
         option = input("\nYour choice? ") #Prompt user for choice
         if option not in valid:
+            print('Invalid input! Please try again!')
+            print()
             continue
         else:
             if option == "1":
-                build_buildings()
+                if not build_buildings():
+                    break
             elif option == "2":
                 save_game()
             elif option == "3":
-                return_to_main_menu()
+                print("\nReturning to the main menu...")
+                break
     return
 
 #-----------------------------------------
@@ -176,12 +180,12 @@ def build_buildings():
                             column = ord(field_location[0].upper()) - ord("A")
                             field[row][column] = buildings[temp[int(choice) - 1]]
                             player.coins -= 1
-                            calculate_points(row,column,player)
+                            calculate_points(player)
 
                             if check_game_over(player, field):
-                                break
+                                return False
                             else:
-                                return
+                                return True
                     else:
                         print("Invalid Building Location!")
                 except:
@@ -217,73 +221,76 @@ def is_connected(location):
 #               Calculate points
 #-----------------------------------------
 
-def calculate_points(row, column, player):
+def calculate_points(player):
     directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # right, down, left, up
-    building = field[row][column]
+   # placed_building = field[row][column]
     accumulated_points = 0
-    if building is not None:
-        # Residential
-        if building == 'R':
-            for dx, dy in directions:
-                nx, ny = row + dx, column + dy
-                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                    if field[nx][ny] != None:
-                        if field[nx][ny] == 'I':
-                            accumulated_points = 1
-                            player.coins += 1
-                            break
-                        elif field[nx][ny] == 'R':
-                            accumulated_points += 1
-                        elif field[nx][ny] == 'C':
-                            accumulated_points += 1
-                            player.coins += 1
-                        elif field[nx][ny] == 'O':
-                            accumulated_points += 2
+    accumulated_coins = 0
+    original_coins = player.coins
+    for row in range(len(field)):
+        for column in range(len(field[0])):
+            accum2points = 0
+            building = field[row][column]
+            if building is not None:
+                # Residential
+                if building == 'R':
+                    for dx, dy in directions:
+                        nx, ny = row + dx, column + dy
+                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                            if field[nx][ny] != None:
+                                if field[nx][ny] == 'I':
+                                    accum2points = 1
+                                    break
+                                elif field[nx][ny] == 'R' or 'C':
+                                    accum2points += 1
+                                elif field[nx][ny] == 'O':
+                                    accum2points += 2
+                    accumulated_points += accum2points
 
-        # Industry
-        elif building == 'I':
-            accumulated_points += 1
-            for dx, dy in directions:
-                nx, ny = row + dx, column + dy
-                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                    if field[nx][ny] != None:
-                        if field[nx][ny] == 'R':
-                            player.coins += 1
+                # Industry
+                elif building == 'I':
+                    accumulated_points += 1
+                    for dx, dy in directions:
+                        nx, ny = row + dx, column + dy
+                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                            if field[nx][ny] != None:
+                                if field[nx][ny] == 'R':
+                                    accumulated_coins += 1
 
-        # Commercial
-        elif building == 'C':
-            for dx, dy in directions:
-                nx, ny = row + dx, column + dy
-                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                    if field[nx][ny] != None:
-                        if field[nx][ny] == 'C':
-                            accumulated_points += 1
-                        elif field[nx][ny] == 'R':
-                            accumulated_points += 1
-                            player.coins += 1
-        # Park
-        elif building == 'O':
-            for dx, dy in directions:
-                nx, ny = row + dx, column + dy
-                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                    if field[nx][ny] != None:
-                        if field[nx][ny] == 'O':
-                            accumulated_points += 1
+                # Commercial
+                elif building == 'C':
+                    for dx, dy in directions:
+                        nx, ny = row + dx, column + dy
+                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                            if field[nx][ny] != None:
+                                if field[nx][ny] == 'C':
+                                    accumulated_points += 1
+                                elif field[nx][ny] == 'R':
+                                    accumulated_coins += 1
 
-        # Road
-        elif building == '*':
-            road_directions = [(0, 1), (0, -1)]  # right, left
-            for dx, dy in road_directions:
-                nx, ny = row + dx, column + dy
-                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                    if field[nx][ny] != None:
-                        if field[nx][ny] == '*':
-                            accumulated_points += 1
-                        if field[nx][ny] == 'R':
-                            accumulated_points += 2
+                # Park
+                elif building == 'O':
+                    for dx, dy in directions:
+                        nx, ny = row + dx, column + dy
+                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                            if field[nx][ny] != None:
+                                if field[nx][ny] == 'O':
+                                    accumulated_points += 1
+
+                # Road
+                elif building == '*':
+                    road_directions = [(0, 1), (0, -1)]  # right, left
+                    for dx, dy in road_directions:
+                        nx, ny = row + dx, column + dy
+                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                            if field[nx][ny] != None:
+                                if field[nx][ny] == '*':
+                                    accumulated_points += 1
         
-        player.points += accumulated_points
+              
 
+    player.points = accumulated_points
+    player.coins = accumulated_coins + original_coins
 
 #-----------------------------------------
 #               LEADERBOARD SAVE 
@@ -446,6 +453,7 @@ def check_game_over(player, field):
         # Print multiple blank lines to "clear" the terminal
         print('\n' * 30)
 
+
         print("  /$$$$$$   /$$$$$$  /$$      /$$ /$$$$$$$$        /$$$$$$  /$$    /$$ /$$$$$$$$ /$$$$$$$ ")
         print(" /$$__  $$ /$$__  $$| $$$    /$$$| $$_____/       /$$__  $$| $$   | $$| $$_____/| $$__  $$")
         print("| $$  \\__/| $$  \\ $$| $$$$  /$$$$| $$            | $$  \\ $$| $$   | $$| $$      | $$  \\ $$")
@@ -456,7 +464,12 @@ def check_game_over(player, field):
         print(" \\______/ |__/  |__/|__/     |__/|________/       \\______/     \\_/    |________/|__/  |__/")
 
         update_leaderboard(player)
-        return_to_main_menu()
+        
+        print()
+        print(f"Your Score is: {player.points}")
+
+        print('\n'*2)
+        print("---------------------------------------------------------------------------------------------------")
         return True
     else:
         return False
@@ -472,20 +485,21 @@ def is_field_filled(field):
 #-----------------------------------------
 #          Return to main menu
 #-----------------------------------------
-def return_to_main_menu():
-    print("\nReturning to the main menu...")
-    main_gameplay()
+# def return_to_main_menu():
+#     print("\nReturning to the main menu...")
+#     main_gameplay()
 
 
 #-----------------------------------------
 #               MAIN GAME
 #-----------------------------------------
 def main_gameplay():
-    print("\nNgee Ann City")
-    print("-------------------")
-    print("Build the happiest and most prosperous city!")
-    print()
+
     while True:
+        print("\nNgee Ann City")
+        print("-------------------")
+        print("Build the happiest and most prosperous city!")
+        print()
         show_main_menu()
         choice = get_main_choice()
         if choice == '1':
@@ -501,9 +515,8 @@ def main_gameplay():
             print_leaderboard()
 
         elif choice == '4':
-            break
             print("\nThank you for playing!")
-
+            break
 
 main_gameplay()
 
