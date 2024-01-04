@@ -27,27 +27,27 @@ field = [
     [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
 ]
 
-field = [ ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
-['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
- ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', None]
-]
+# field = [ ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+# ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I'],
+#  ['I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', None]
+# ]
 
 
 buildings = {"Residential":"R","Industry":"I","Commercial":"C","Park":"O","Road":"*"}
@@ -178,7 +178,7 @@ def get_building_choice():
 def build_buildings():
     temp = get_building_choice()
 
-    print(f"Available Buildings: [1] {temp[0]} , [2] {temp[1]}")
+    print(f"Available Buildings: [1] {temp[0]} ({buildings[temp[0]]}) , [2] {temp[1]} ({buildings[temp[1]]})")
     choice = input("Which building would you want? Press 1 or 2: ")
 
     while True:
@@ -203,7 +203,7 @@ def build_buildings():
                             column = ord(field_location[0].upper()) - ord("A")
                             field[row][column] = buildings[temp[int(choice) - 1]]
                             player.coins -= 1
-                            calculate_points(player)
+                            calculate_points(row,column,player)
 
                             if check_game_over(player, field):
                                 return False
@@ -244,76 +244,66 @@ def is_connected(location):
 #               Calculate points
 #-----------------------------------------
 
-def calculate_points(player):
+def calculate_points(row, column, player):
     directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # right, down, left, up
-   # placed_building = field[row][column]
+    placed_building = field[row][column]
     accumulated_points = 0
-    accumulated_coins = 0
-    original_coins = player.coins
-    for row in range(len(field)):
-        for column in range(len(field[0])):
-            accum2points = 0
-            building = field[row][column]
-            if building is not None:
-                # Residential
-                if building == 'R':
-                    for dx, dy in directions:
-                        nx, ny = row + dx, column + dy
-                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                            if field[nx][ny] != None:
-                                if field[nx][ny] == 'I':
-                                    accum2points = 1
-                                    break
-                                elif field[nx][ny] == 'R' or 'C':
-                                    accum2points += 1
-                                elif field[nx][ny] == 'O':
-                                    accum2points += 2
-                    accumulated_points += accum2points
+    if placed_building is not None:
+        # Residential
+        if placed_building == 'R':
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'I':
+                            accumulated_points = 1
+                            break
+                        elif field[nx][ny] == 'R' and 'C':
+                            accumulated_points += 1
+                        elif field[nx][ny] == 'O':
+                            accumulated_points += 2
 
-                # Industry
-                elif building == 'I':
-                    accumulated_points += 1
-                    for dx, dy in directions:
-                        nx, ny = row + dx, column + dy
-                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                            if field[nx][ny] != None:
-                                if field[nx][ny] == 'R':
-                                    accumulated_coins += 1
+        # Industry
+        elif placed_building == 'I':
+            accumulated_points += 1
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'R':
+                            player.coins += 1
 
-                # Commercial
-                elif building == 'C':
-                    for dx, dy in directions:
-                        nx, ny = row + dx, column + dy
-                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                            if field[nx][ny] != None:
-                                if field[nx][ny] == 'C':
-                                    accumulated_points += 1
-                                elif field[nx][ny] == 'R':
-                                    accumulated_coins += 1
+        # Commercial
+        elif placed_building == 'C':
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'C':
+                            accumulated_points += 1
+                        elif field[nx][ny] == 'R':
+                            player.coins += 1
 
-                # Park
-                elif building == 'O':
-                    for dx, dy in directions:
-                        nx, ny = row + dx, column + dy
-                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                            if field[nx][ny] != None:
-                                if field[nx][ny] == 'O':
-                                    accumulated_points += 1
+        # Park
+        elif placed_building == 'O':
+            for dx, dy in directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == 'O':
+                            accumulated_points += 1
 
-                # Road
-                elif building == '*':
-                    road_directions = [(0, 1), (0, -1)]  # right, left
-                    for dx, dy in road_directions:
-                        nx, ny = row + dx, column + dy
-                        if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
-                            if field[nx][ny] != None:
-                                if field[nx][ny] == '*':
-                                    accumulated_points += 1
+        # Road
+        elif placed_building == '*':
+            road_directions = [(0, 1), (0, -1)]  # right, left
+            for dx, dy in road_directions:
+                nx, ny = row + dx, column + dy
+                if 0 <= nx < len(field) and 0 <= ny < len(field[nx]):
+                    if field[nx][ny] != None:
+                        if field[nx][ny] == '*':
+                            accumulated_points += 1
         
-              
-
-    player.points = accumulated_points
-    player.coins = accumulated_coins + original_coins
+        player.points += accumulated_points
 
 #-----------------------------------------
 #               LEADERBOARD SAVE 
@@ -505,12 +495,6 @@ def is_field_filled(field):
     return True
 
 
-#-----------------------------------------
-#          Return to main menu
-#-----------------------------------------
-# def return_to_main_menu():
-#     print("\nReturning to the main menu...")
-#     main_gameplay()
 
 
 #-----------------------------------------
@@ -526,7 +510,7 @@ def main_gameplay():
         show_main_menu()
         choice = get_main_choice()
         if choice == '1':
-            #initialize_game()
+            initialize_game()
             game_menu()
                 
         elif choice == '2':
@@ -541,6 +525,6 @@ def main_gameplay():
             print("\nThank you for playing!")
             break
 
-calculate_points(player)
+#calculate_points(player)
 main_gameplay()
 

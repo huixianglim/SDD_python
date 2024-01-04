@@ -1,3 +1,4 @@
+Hui Xiang|400
 postmal|21
 post2|21
 Test|20
@@ -7,4 +8,3 @@ rep|4
 tetty|4
 kpop|4
 poke|3
-20|3
